@@ -10,14 +10,21 @@ const notes = [
 
 const scoopBank = document.querySelector("#scoopBank");
 const conesGrid = document.querySelector("#conesGrid");
+const levelTabs = document.querySelector("#levelTabs");
 const scoopTemplate = document.querySelector("#scoopTemplate");
 const coneTemplate = document.querySelector("#coneTemplate");
 const score = document.querySelector("#score");
 const feedback = document.querySelector("#feedback");
 const resetButton = document.querySelector("#resetButton");
+const levelSizes = [3, 4, 5, 6, 7];
 
 let selectedLetter = null;
 let matched = new Set();
+let currentLevelIndex = 0;
+
+function activeNotes() {
+  return notes.slice(0, levelSizes[currentLevelIndex]);
+}
 
 function shuffle(items) {
   return [...items].sort(() => Math.random() - 0.5);
@@ -41,7 +48,7 @@ function playTone(isCorrect) {
 }
 
 function updateScore() {
-  score.textContent = `${matched.size} / ${notes.length}`;
+  score.textContent = `${matched.size} / ${activeNotes().length}`;
 }
 
 function setFeedback(text, type = "") {
@@ -87,9 +94,10 @@ function tryMatch(letter, coneCard) {
   setFeedback(`Správně, ${letter} má svůj kopeček.`, "good");
   playTone(true);
 
-  if (matched.size === notes.length) {
+  if (matched.size === activeNotes().length) {
     document.body.classList.add("celebrate");
-    setFeedback("Hotovo! Všechny zmrzliny jsou správně poskládané.", "good");
+    const hasNextLevel = currentLevelIndex < levelSizes.length - 1;
+    setFeedback(hasNextLevel ? "Hotovo! Můžeš zkusit další stránku." : "Hotovo! Všechny zmrzliny jsou správně poskládané.", "good");
   }
 }
 
@@ -133,13 +141,32 @@ function createCone(note) {
 }
 
 function renderGame() {
+  const currentNotes = activeNotes();
   matched = new Set();
   selectedLetter = null;
   document.body.classList.remove("celebrate");
-  scoopBank.replaceChildren(...shuffle(notes).map(createScoop));
-  conesGrid.replaceChildren(...shuffle(notes).map(createCone));
+  scoopBank.replaceChildren(...shuffle(currentNotes).map(createScoop));
+  conesGrid.replaceChildren(...currentNotes.map(createCone));
+  document.documentElement.style.setProperty("--level-count", currentNotes.length);
   updateScore();
-  setFeedback("Vyber kopeček a polož ho na správný kornout.");
+  setFeedback(`Stránka ${currentLevelIndex + 1}: přiřaď ${currentNotes.map((note) => note.letter).join(", ")}.`);
+  renderLevels();
+}
+
+function renderLevels() {
+  levelTabs.replaceChildren(...levelSizes.map((size, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "level-tab";
+    button.textContent = `${index + 1}`;
+    button.setAttribute("aria-label", `Stránka ${index + 1}, ${size} not`);
+    button.setAttribute("aria-pressed", String(index === currentLevelIndex));
+    button.addEventListener("click", () => {
+      currentLevelIndex = index;
+      renderGame();
+    });
+    return button;
+  }));
 }
 
 resetButton.addEventListener("click", renderGame);
