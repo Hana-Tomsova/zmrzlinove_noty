@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Zmrzlinove noty</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <section class="topbar" aria-label="Ovládání hry">
+        <div>
+          <p class="eyebrow">Procvičování not</p>
+          <h1>Zmrzlinové noty</h1>
+        </div>
+        <div class="status">
+          <span class="score" id="score">0 / 7</span>
+          <button class="icon-button" id="resetButton" type="button" aria-label="Zamíchat znovu" title="Zamíchat znovu">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 11a8.1 8.1 0 0 0-15.5-2M4 4v5h5" />
+              <path d="M4 13a8.1 8.1 0 0 0 15.5 2M20 20v-5h-5" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <section class="play-area" aria-label="Herní plocha">
+        <div class="scoops-panel" id="scoopBank" aria-label="Barevné kopečky"></div>
+
+        <div class="cone-zone">
+          <div class="feedback" id="feedback" aria-live="polite">Vyber kopeček a polož ho na správný kornout.</div>
+          <div class="cones-grid" id="conesGrid" aria-label="Kornouty s písmeny"></div>
+        </div>
+      </section>
+    </main>
+
+    <template id="scoopTemplate">
+      <button class="scoop" type="button" draggable="true">
+        <span class="staff" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+          <svg class="treble" viewBox="0 0 80 120" aria-hidden="true">
+            <path d="M39 105c-14 0-20-10-16-20 4-9 16-11 25-6 12 7 13 24-2 33-16 9-35 1-31-20 4-23 44-31 47-58 2-18-18-26-28-13-9 11-3 29 12 35 20 8 35-8 31-25-3-15-19-22-33-17" />
+          </svg>
+          <span class="note-dot"></span>
+        </span>
+      </button>
+    </template>
+
+    <template id="coneTemplate">
+      <button class="cone-card" type="button">
+        <span class="placed-scoop"></span>
+        <span class="cone">
+          <span class="rim"></span>
+          <span class="waffle"></span>
+          <span class="letter"></span>
+        </span>
+      </button>
+    </template>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
