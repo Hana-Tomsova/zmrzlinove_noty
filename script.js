@@ -1,11 +1,11 @@
 const notes = [
-  { letter: "C", color: "#df2d18", noteTop: "76%", noteLeft: "58%" },
-  { letter: "D", color: "#f58213", noteTop: "68%", noteLeft: "60%" },
-  { letter: "E", color: "#f8e71c", noteTop: "58%", noteLeft: "60%" },
-  { letter: "F", color: "#40df49", noteTop: "48%", noteLeft: "57%" },
-  { letter: "G", color: "#147c72", noteTop: "39%", noteLeft: "57%" },
-  { letter: "A", color: "#623182", noteTop: "31%", noteLeft: "58%" },
-  { letter: "H", color: "#d64bc9", noteTop: "22%", noteLeft: "59%" },
+  { letter: "C", color: "#df2d18", noteY: "126%", noteLeft: "60%", ledger: true },
+  { letter: "D", color: "#f58213", noteY: "113%", noteLeft: "60%" },
+  { letter: "E", color: "#f8e71c", noteY: "100%", noteLeft: "60%" },
+  { letter: "F", color: "#40df49", noteY: "88%", noteLeft: "60%" },
+  { letter: "G", color: "#147c72", noteY: "75%", noteLeft: "60%" },
+  { letter: "A", color: "#623182", noteY: "63%", noteLeft: "60%" },
+  { letter: "H", color: "#d64bc9", noteY: "50%", noteLeft: "60%" },
 ];
 
 const scoopBank = document.querySelector("#scoopBank");
@@ -105,8 +105,9 @@ function createScoop(note) {
   const scoop = scoopTemplate.content.firstElementChild.cloneNode(true);
   scoop.dataset.letter = note.letter;
   scoop.style.setProperty("--scoop-color", note.color);
-  scoop.style.setProperty("--note-top", note.noteTop);
+  scoop.style.setProperty("--note-y", note.noteY);
   scoop.style.setProperty("--note-left", note.noteLeft);
+  scoop.classList.toggle("has-ledger", Boolean(note.ledger));
   scoop.setAttribute("aria-label", `Kopeček pro notu ${note.letter}`);
 
   scoop.addEventListener("click", () => selectScoop(note.letter));
