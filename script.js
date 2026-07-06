@@ -148,6 +148,7 @@ function renderGame() {
   scoopBank.replaceChildren(...shuffle(currentNotes).map(createScoop));
   conesGrid.replaceChildren(...currentNotes.map(createCone));
   document.documentElement.style.setProperty("--level-count", currentNotes.length);
+  document.documentElement.style.setProperty("--cone-columns", Math.min(currentNotes.length, 4));
   updateScore();
   setFeedback(`Stránka ${currentLevelIndex + 1}: přiřaď ${currentNotes.map((note) => note.letter).join(", ")}.`);
   renderLevels();
