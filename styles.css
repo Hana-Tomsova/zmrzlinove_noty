@@ -1,26 +1,33 @@
 :root {
   color-scheme: light;
-  --ink: #111111;
-  --paper: #fffaf3;
-  --cream: #f7bf7d;
-  --cream-deep: #df9451;
-  --good: #287a50;
-  --bad: #b33428;
-  --shadow: 0 16px 34px rgba(31, 21, 12, 0.14);
+  --ink: #16120e;
+  --paper: #fff9ef;
+  --cream: #f6bd78;
+  --cream-light: #ffd69c;
+  --cream-deep: #cf7d34;
+  --good: #267a52;
+  --bad: #bc382d;
+  --shadow: 0 16px 30px rgba(57, 38, 18, 0.18);
+  --level-count: 3;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html,
+body {
+  min-height: 100%;
+}
+
 body {
   margin: 0;
-  min-height: 100vh;
   font-family: "Arial Rounded MT Bold", "Trebuchet MS", system-ui, sans-serif;
   color: var(--ink);
   background:
-    linear-gradient(90deg, rgba(17, 17, 17, 0.035) 1px, transparent 1px) 0 0 / 28px 28px,
-    linear-gradient(rgba(17, 17, 17, 0.03) 1px, transparent 1px) 0 0 / 28px 28px,
+    radial-gradient(circle at 12% 14%, rgba(255, 210, 124, 0.18), transparent 24%),
+    linear-gradient(90deg, rgba(89, 68, 43, 0.045) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(rgba(89, 68, 43, 0.04) 1px, transparent 1px) 0 0 / 32px 32px,
     var(--paper);
 }
 
@@ -29,33 +36,32 @@ button {
 }
 
 .game-shell {
-  width: min(1180px, calc(100vw - 28px));
-  min-height: calc(100vh - 28px);
-  margin: 14px auto;
+  width: min(1360px, calc(100vw - 24px));
+  height: min(760px, calc(100vh - 20px));
+  min-height: 640px;
+  margin: 10px auto;
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 14px;
+  gap: 12px;
 }
 
 .topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 10px 4px 4px;
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) auto;
+  align-items: end;
+  gap: 18px;
 }
 
 .eyebrow {
   margin: 0 0 2px;
-  font-size: clamp(0.8rem, 1.5vw, 1rem);
-  font-weight: 800;
-  letter-spacing: 0;
+  font-size: 0.95rem;
+  font-weight: 900;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(2.25rem, 8vw, 5.8rem);
-  line-height: 0.88;
+  font-size: clamp(2.7rem, 5.8vw, 5.7rem);
+  line-height: 0.9;
   letter-spacing: 0;
   text-transform: uppercase;
 }
@@ -63,19 +69,46 @@ h1 {
 .status {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 10px;
-  flex: 0 0 auto;
+  flex-wrap: wrap;
+}
+
+.level-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 5px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 4px 5px 0 rgba(22, 18, 14, 0.18);
+}
+
+.level-tab {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+.level-tab[aria-pressed="true"] {
+  color: #fff;
+  background: var(--ink);
 }
 
 .score {
-  min-width: 78px;
+  min-width: 82px;
   padding: 8px 12px;
-  border: 4px solid var(--ink);
-  border-radius: 8px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
   background: #ffffff;
-  font-size: 1.2rem;
-  font-weight: 900;
+  font-size: 1.16rem;
+  font-weight: 1000;
   text-align: center;
+  box-shadow: 4px 5px 0 rgba(22, 18, 14, 0.18);
 }
 
 .icon-button {
@@ -83,11 +116,11 @@ h1 {
   height: 48px;
   display: grid;
   place-items: center;
-  border: 4px solid var(--ink);
-  border-radius: 8px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
   background: #fff;
   cursor: pointer;
-  box-shadow: 4px 5px 0 var(--ink);
+  box-shadow: 4px 5px 0 rgba(22, 18, 14, 0.18);
 }
 
 .icon-button svg {
@@ -101,36 +134,40 @@ h1 {
 }
 
 .play-area {
+  min-height: 0;
   display: grid;
-  grid-template-columns: minmax(270px, 0.78fr) minmax(340px, 1.22fr);
+  grid-template-columns: minmax(280px, 0.36fr) minmax(660px, 1fr);
   gap: 18px;
   align-items: stretch;
 }
 
 .scoops-panel {
+  min-height: 0;
   display: grid;
-  grid-template-columns: repeat(2, minmax(118px, 1fr));
-  grid-auto-rows: minmax(128px, 1fr);
-  gap: 13px;
-  align-content: start;
+  grid-template-columns: repeat(2, minmax(116px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 12px;
+  align-content: stretch;
 }
 
 .cone-zone {
+  min-height: 0;
   display: grid;
   grid-template-rows: auto 1fr;
-  gap: 10px;
+  gap: 12px;
 }
 
 .feedback {
   min-height: 44px;
   display: flex;
   align-items: center;
-  padding: 8px 12px;
-  border: 4px solid var(--ink);
-  border-radius: 8px;
-  background: #fff;
-  font-size: clamp(0.95rem, 2vw, 1.2rem);
-  font-weight: 900;
+  padding: 8px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 4px 5px 0 rgba(22, 18, 14, 0.14);
+  font-size: clamp(0.95rem, 1.4vw, 1.18rem);
+  font-weight: 1000;
 }
 
 .feedback.good {
@@ -142,10 +179,11 @@ h1 {
 }
 
 .cones-grid {
+  min-height: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(110px, 1fr));
-  grid-auto-rows: minmax(220px, 1fr);
-  gap: 13px;
+  grid-template-columns: repeat(var(--level-count), minmax(96px, 1fr));
+  gap: clamp(8px, 1vw, 14px);
+  align-items: stretch;
 }
 
 .scoop,
@@ -158,89 +196,120 @@ h1 {
 
 .scoop {
   position: relative;
-  min-height: 126px;
+  min-height: 106px;
+  border-radius: 28px;
   cursor: grab;
-  filter: drop-shadow(4px 8px 0 rgba(17, 17, 17, 0.16));
+  filter: drop-shadow(0 11px 0 rgba(22, 18, 14, 0.12));
   transition: transform 160ms ease, filter 160ms ease, opacity 160ms ease;
 }
 
-.scoop::before {
+.scoop::before,
+.placed-scoop::before {
   content: "";
   position: absolute;
-  inset: 13% 3% 7%;
-  background: var(--scoop-color);
-  border: 5px solid var(--ink);
-  border-radius: 50% 50% 28% 28% / 58% 58% 28% 28%;
-  clip-path: polygon(8% 43%, 12% 29%, 28% 12%, 53% 7%, 78% 14%, 91% 34%, 92% 51%, 100% 55%, 95% 76%, 79% 80%, 70% 75%, 58% 84%, 46% 78%, 34% 86%, 24% 78%, 13% 82%, 3% 71%, 0 55%);
+  inset: 12% 4% 8%;
+  background:
+    radial-gradient(circle at 34% 22%, rgba(255, 255, 255, 0.58), transparent 18%),
+    radial-gradient(circle at 65% 16%, rgba(255, 255, 255, 0.22), transparent 17%),
+    linear-gradient(180deg, color-mix(in srgb, var(--scoop-color), #fff 20%), var(--scoop-color) 58%, color-mix(in srgb, var(--scoop-color), #000 13%));
+  border: 4px solid var(--ink);
+  border-radius: 48% 52% 38% 38% / 64% 64% 30% 30%;
+}
+
+.scoop::after,
+.placed-scoop::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 6%;
+  height: 33%;
+  background:
+    radial-gradient(circle at 12% 15%, var(--scoop-color) 0 18%, transparent 19%),
+    radial-gradient(circle at 33% 38%, var(--scoop-color) 0 21%, transparent 22%),
+    radial-gradient(circle at 57% 35%, var(--scoop-color) 0 22%, transparent 23%),
+    radial-gradient(circle at 80% 13%, var(--scoop-color) 0 19%, transparent 20%);
+  border-bottom: 4px solid var(--ink);
+  border-radius: 0 0 40px 40px;
+  z-index: 0;
+}
+
+.scoop-shine {
+  position: absolute;
+  left: 25%;
+  top: 25%;
+  width: 34%;
+  height: 16%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.36);
+  transform: rotate(-9deg);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .scoop:hover,
 .scoop:focus-visible,
 .scoop.selected {
-  transform: translateY(-4px) rotate(-1deg);
-  filter: drop-shadow(7px 12px 0 rgba(17, 17, 17, 0.16));
+  transform: translateY(-4px) scale(1.02);
+  filter: drop-shadow(0 15px 0 rgba(22, 18, 14, 0.13));
   outline: none;
 }
 
-.scoop.selected::after {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  border: 4px dashed var(--ink);
-  border-radius: 18px;
+.scoop.selected {
+  box-shadow: inset 0 0 0 4px rgba(22, 18, 14, 0.18);
 }
 
 .scoop.matched {
-  opacity: 0.25;
-  transform: scale(0.92);
+  opacity: 0.24;
+  transform: scale(0.94);
   pointer-events: none;
 }
 
 .staff {
   position: absolute;
-  inset: 25% 17% 23%;
+  inset: 27% 14% 22%;
   display: grid;
   align-content: center;
-  gap: 7px;
-  z-index: 1;
+  gap: clamp(4px, 0.65vh, 7px);
+  z-index: 2;
 }
 
-.staff span:not(.note-dot) {
+.staff span:not(.note-dot):not(.treble) {
   display: block;
   height: 2px;
-  background: var(--ink);
-  opacity: 0.8;
+  border-radius: 999px;
+  background: rgba(22, 18, 14, 0.78);
 }
 
 .treble {
   position: absolute;
-  left: 6%;
-  top: -17%;
-  width: 43%;
-  height: 128%;
-  fill: none;
-  stroke: var(--ink);
-  stroke-width: 5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  left: 4%;
+  top: 44%;
+  transform: translateY(-50%);
+  width: 42%;
+  color: var(--ink);
+  font-family: "Times New Roman", "Apple Symbols", serif;
+  font-size: clamp(4.2rem, 7vw, 6.1rem);
+  font-weight: 400;
+  line-height: 0.8;
 }
 
 .note-dot {
   position: absolute;
-  width: 27px;
-  height: 17px;
+  width: clamp(22px, 2.8vw, 32px);
+  height: clamp(14px, 1.8vw, 20px);
   left: var(--note-left);
   top: var(--note-top);
   border: 3px solid var(--ink);
   border-radius: 50%;
-  transform: rotate(3deg);
-  background: color-mix(in srgb, var(--scoop-color), #fff 12%);
+  transform: rotate(5deg);
+  background: color-mix(in srgb, var(--scoop-color), #fff 14%);
 }
 
 .cone-card {
   position: relative;
-  min-height: 216px;
-  border-radius: 8px;
+  min-height: 0;
+  border-radius: 18px;
   cursor: pointer;
   transition: transform 160ms ease;
 }
@@ -253,7 +322,7 @@ h1 {
 }
 
 .cone-card.drop-ready .cone {
-  filter: drop-shadow(0 0 0 #000) drop-shadow(0 10px 0 rgba(40, 122, 80, 0.22));
+  filter: drop-shadow(0 12px 0 rgba(38, 122, 82, 0.22));
 }
 
 .cone-card.wrong {
@@ -267,39 +336,29 @@ h1 {
 .placed-scoop {
   position: absolute;
   left: 50%;
-  top: 0;
-  width: min(90%, 150px);
+  top: 4%;
+  width: min(96%, 158px);
   aspect-ratio: 1.45;
   translate: -50% 0;
-  z-index: 3;
+  z-index: 4;
   opacity: 0;
   pointer-events: none;
-  filter: drop-shadow(3px 6px 0 rgba(17, 17, 17, 0.18));
+  filter: drop-shadow(0 10px 0 rgba(22, 18, 14, 0.13));
 }
 
 .placed-scoop.visible {
   opacity: 1;
 }
 
-.placed-scoop::before {
-  content: "";
-  position: absolute;
-  inset: 9% 0 0;
-  background: var(--scoop-color);
-  border: 5px solid var(--ink);
-  border-radius: 50% 50% 28% 28% / 58% 58% 28% 28%;
-  clip-path: polygon(8% 43%, 12% 29%, 28% 12%, 53% 7%, 78% 14%, 91% 34%, 92% 51%, 100% 55%, 95% 76%, 79% 80%, 70% 75%, 58% 84%, 46% 78%, 34% 86%, 24% 78%, 13% 82%, 3% 71%, 0 55%);
-}
-
 .cone {
   position: absolute;
   left: 50%;
-  top: 42px;
-  width: min(88%, 150px);
-  height: calc(100% - 44px);
+  top: 18%;
+  width: min(96%, 160px);
+  height: 80%;
   translate: -50% 0;
   display: block;
-  filter: drop-shadow(4px 8px 0 rgba(17, 17, 17, 0.14));
+  filter: drop-shadow(0 13px 0 rgba(22, 18, 14, 0.13));
 }
 
 .cone::before {
@@ -307,45 +366,59 @@ h1 {
   position: absolute;
   left: 15%;
   right: 15%;
-  top: 20px;
-  bottom: 0;
+  top: 17%;
+  bottom: 1%;
   background:
-    linear-gradient(58deg, transparent 46%, rgba(145, 87, 35, 0.24) 47%, transparent 49%) 0 0 / 22px 22px,
-    linear-gradient(122deg, transparent 46%, rgba(145, 87, 35, 0.2) 47%, transparent 49%) 0 0 / 22px 22px,
-    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.45), transparent 22%),
-    var(--cream);
-  border: 5px solid var(--ink);
-  clip-path: polygon(0 0, 100% 0, 58% 100%, 42% 100%);
+    linear-gradient(58deg, transparent 46%, rgba(133, 73, 27, 0.26) 47%, transparent 49%) 0 0 / 24px 24px,
+    linear-gradient(122deg, transparent 46%, rgba(133, 73, 27, 0.22) 47%, transparent 49%) 0 0 / 24px 24px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.24), transparent 45%),
+    linear-gradient(180deg, var(--cream-light), var(--cream) 52%, var(--cream-deep));
+  border: 4px solid var(--ink);
+  border-radius: 0 0 38% 38% / 0 0 6% 6%;
+  clip-path: polygon(3% 0, 97% 0, 58% 100%, 42% 100%);
+}
+
+.cone::after {
+  content: "";
+  position: absolute;
+  left: 40%;
+  right: 40%;
+  bottom: 0;
+  height: 8px;
+  border-radius: 0 0 999px 999px;
+  background: var(--ink);
+  opacity: 0.72;
 }
 
 .rim {
   position: absolute;
-  left: 4%;
-  right: 4%;
-  top: 0;
-  height: 45px;
+  left: 2%;
+  right: 2%;
+  top: 5%;
+  height: 18%;
   z-index: 2;
-  border: 5px solid var(--ink);
-  border-radius: 13px 13px 9px 9px;
+  border: 4px solid var(--ink);
+  border-radius: 20px 20px 13px 13px;
   background:
-    repeating-linear-gradient(174deg, transparent 0 16px, rgba(116, 73, 34, 0.22) 17px 18px, transparent 19px 28px),
-    var(--cream);
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.45), transparent 18%),
+    repeating-linear-gradient(174deg, transparent 0 17px, rgba(116, 73, 34, 0.22) 18px 19px, transparent 20px 29px),
+    linear-gradient(180deg, #ffd7a2, var(--cream));
 }
 
 .waffle {
   position: absolute;
-  inset: 22px 16% 5%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.28), transparent);
+  inset: 22% 16% 4%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.18), transparent);
   clip-path: polygon(0 0, 100% 0, 58% 100%, 42% 100%);
 }
 
 .letter {
   position: absolute;
   left: 50%;
-  top: 48%;
+  top: 50%;
   translate: -50% -50%;
-  z-index: 2;
-  font-size: clamp(3.2rem, 7vw, 5rem);
+  z-index: 3;
+  font-size: clamp(3rem, 5.6vw, 5.3rem);
   font-weight: 1000;
   line-height: 1;
 }
@@ -366,52 +439,53 @@ h1 {
   70% { transform: translateY(-4px) rotate(2deg); }
 }
 
-@media (max-width: 820px) {
+@media (max-width: 980px) {
   .game-shell {
-    width: min(100vw - 18px, 620px);
-    margin: 9px auto;
+    height: auto;
+    min-height: calc(100vh - 18px);
   }
 
-  .topbar {
-    align-items: flex-start;
-  }
-
+  .topbar,
   .play-area {
     grid-template-columns: 1fr;
   }
 
+  .status {
+    justify-content: flex-start;
+  }
+
   .scoops-panel {
-    grid-template-columns: repeat(3, minmax(92px, 1fr));
-    grid-auto-rows: 112px;
+    grid-template-columns: repeat(3, minmax(112px, 1fr));
+    grid-auto-rows: 118px;
   }
 
   .cones-grid {
-    grid-template-columns: repeat(2, minmax(130px, 1fr));
-    grid-auto-rows: 204px;
-  }
-
-  .score {
-    min-width: 68px;
-    font-size: 1rem;
-  }
-
-  .icon-button {
-    width: 44px;
-    height: 44px;
+    grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+    grid-auto-rows: 230px;
   }
 }
 
-@media (max-width: 440px) {
-  .topbar {
-    gap: 8px;
+@media (max-width: 520px) {
+  .game-shell {
+    width: min(100vw - 16px, 430px);
+    margin: 8px auto;
+  }
+
+  h1 {
+    font-size: clamp(2.3rem, 12vw, 3.6rem);
+  }
+
+  .level-tabs {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
   }
 
   .scoops-panel {
-    grid-template-columns: repeat(2, minmax(118px, 1fr));
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
   }
 
   .cones-grid {
-    grid-template-columns: 1fr;
-    grid-auto-rows: 218px;
+    grid-template-columns: repeat(2, minmax(128px, 1fr));
   }
 }
